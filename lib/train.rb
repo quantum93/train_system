@@ -62,4 +62,14 @@ class Train
     DB.exec("INSERT INTO stops (time, city_id, train_id) VALUES ('#{time}', #{city.id}, #{@id})")
   end
 
+  def stops
+    returned_stops = DB.exec("SELECT * FROM stops WHERE train_id = #{@id}")
+    returned_stops.map do |stop|
+      id = stop.fetch("id").to_i
+      city_id = stop.fetch("city_id").to_i
+      time = stop.fetch("time")
+      Stop.new({:id => id, :city => City.find(city_id), :train => self, :time => time})
+    end
+  end
+
 end

@@ -13,8 +13,8 @@ class Stop
     returned_stops = DB.exec("SELECT * FROM stops ORDER BY id;")
     returned_stops.map() do |stop|
       id = stop.fetch("id").to_i
-      city_id = stop.fetch("city_id")
-      train_id = stop.fetch("train_id")
+      city_id = stop.fetch("city_id").to_i
+      train_id = stop.fetch("train_id").to_i
       time = stop.fetch("time")
       Stop.new({:id => id, :city => City.find(city_id), :train => Train.find(train_id), :time => time})
     end
@@ -28,10 +28,10 @@ class Stop
   def self.find(id)
     stop = DB.exec("SELECT * FROM stops WHERE id = #{id};").first
     if stop
-      city_id = stop.fetch("city_id")
-      train_id = stop.fetch("train_id")
+      city_id = stop.fetch("city_id").to_i
+      train_id = stop.fetch("train_id").to_i
       time = stop.fetch("time")
-      Stop.new({:id => id, :city => City.find(city_id), :train => Train.find(train_id), :time => time})
+      Stop.new({:id => id.to_i, :city => City.find(city_id), :train => Train.find(train_id), :time => time})
     else
       nil
     end

@@ -90,4 +90,26 @@ describe('.find_by_train') do
   end
 end
 
+describe('.stops') do
+  it("finds stops for a city") do
+    city = City.new({:name => "Portland", :id => nil})
+    city.save()
+    city2 = City.new({:name => "Seattle", :id => nil})
+    city2.save()
+    train = Train.new({:name => "Red line", :id => nil})
+    train.save()
+    train2 = Train.new({:name => "Blue line", :id => nil})
+    train2.save()
+    stop = Stop.new({:city => city, :train => train, :time => '13:00:00'})
+    stop.save()
+    stop2 = Stop.new({:city => city, :train => train2, :time => '13:00:00'})
+    stop2.save()
+    stop3 = Stop.new({:city => city2, :train => train2, :time => '15:00:00'})
+    stop3.save()
+    expect(city.stops()).to(eq([stop, stop2]))
+    expect(city2.stops()).to(eq([stop3]))
+  end
+end
+
+
 end
