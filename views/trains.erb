@@ -1,0 +1,15 @@
+<h1>All Trains</h1>
+<h3>Listed by train number</h3>
+
+<% if @trains.any? %>
+<table>
+  <tr> <th>Train type</th><th>Train number</th> </tr>
+  <% @trains.each do |train| %>
+  <tr> <td><%= train.name%></td> <td><%=train.id%></td></tr>
+  <% end %>
+</table>
+<% else %>
+<p>There are no trains to display....hope you like this train station</p>
+<% end %>
+
+<p><a href="/trains/new">Add a new train</a></p>
