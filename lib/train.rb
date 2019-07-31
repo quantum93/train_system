@@ -26,7 +26,6 @@ class Train
   def self.find(id)
     train = DB.exec("SELECT * FROM trains WHERE id = #{id};").first
     if train
-      id = train.fetch("id").to_i
       name = train.fetch("name")
       Train.new({:name => name, :id => id})
     else

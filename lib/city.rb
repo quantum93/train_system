@@ -25,7 +25,6 @@ class City
     city = DB.exec("SELECT * FROM cities WHERE id = #{id};").first
     if city
       name = city.fetch("name")
-      id = city.fetch("id").to_i
       City.new({:name => name, :id => id})
     else
       nil

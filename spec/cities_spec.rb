@@ -83,8 +83,8 @@ describe('.find_by_train') do
     train.add_stop(city, '01:00 PM')
     train2 = Train.new({:name => "Blue line", :id => nil})
     train2.save()
-    train2.add_stop(city, '10:00 AM')
-    train2.add_stop(city2, '12:00 PM')
+    train2.add_stop(city, '10:00:00')
+    train2.add_stop(city2, '12:00:00')
     expect(City.find_by_train(train.id)).to(eq([city]))
     expect(City.find_by_train(train2.id)).to(eq([city, city2]))
   end
