@@ -1,0 +1,16 @@
+
+<div class="jumbotron">
+  <h2>City: <%= @city.name %></h2>
+  <img src="/images/station.jpg" alt="">
+
+<h3>City Stops</h3>
+<% if @stops.any? %>
+  <table>
+    <tr><th>Train</th><th>Time</th> </tr>
+    <% @city.stops.each do |stop| %>
+    <tr><td><%=stop.train.name%></td> <td><%=stop.time%></td></tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>There are no stops to display....hope you like your neighbor</p>
+<% end %>

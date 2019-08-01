@@ -1,4 +1,5 @@
 
+<div class="jumbotron">
 
 <h1>All Stops</h1>
 
@@ -8,12 +9,19 @@
   <table>
     <tr> <th>City</th><th>Train</th><th>Time</th> </tr>
     <% @stops.each do |stop| %>
-    <tr> <td><%= stop.city.name%></td> <td><%=stop.train.name%></td> <td><%=stop.time%></td></tr>
+    <tr>
+      <td><a href="/cities/<%= stop.city.id %>"><%= stop.city.name%></a></td>
+      <td><%=stop.train.name%></td> <td><%=stop.time%></td>
+    </tr>
     <% end %>
   </table>
 <% else %>
   <p>There are no stops to display....hope you like your neighbor</p>
 <% end %>
 
+</div>
 <p><a href="/stops/new">Add a new stop</a></p>
+<p><a href="/cities/new">Add a new city</a></p>
+<p><a href="/trains/new">Add a new train</a></p>
 <p><a href="/trains">show all trains</a></p>
+<p><a href="/cities">show all cities</a></p>

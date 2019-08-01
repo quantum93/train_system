@@ -9,25 +9,25 @@ also_reload 'lib/**/*.rb'
 
 DB = PG.connect({:dbname => "train_system_test"})
 
-city = City.new({:name => "Portland", :id => nil})
-city.save()
-city2 = City.new({:name => "Seattle", :id => nil})
-city2.save()
-train = Train.new({:name => "Red line", :id => nil})
-train.save()
-train2 = Train.new({:name => "Blue line", :id => nil})
-train2.save()
-stop = Stop.new({:city => city, :train => train, :time => '13:00:00'})
-stop.save()
-stop2 = Stop.new({:city => city, :train => train2, :time => '13:00:00'})
-stop2.save()
-stop3 = Stop.new({:city => city2, :train => train2, :time => '15:00:00'})
-stop3.save()
+# city = City.new({:name => "Portland", :id => nil})
+# city.save()
+# city2 = City.new({:name => "Seattle", :id => nil})
+# city2.save()
+# train = Train.new({:name => "Red line", :id => nil})
+# train.save()
+# train2 = Train.new({:name => "Blue line", :id => nil})
+# train2.save()
+# stop = Stop.new({:city => city, :train => train, :time => '13:00:00'})
+# stop.save()
+# stop2 = Stop.new({:city => city, :train => train2, :time => '13:00:00'})
+# stop2.save()
+# stop3 = Stop.new({:city => city2, :train => train2, :time => '15:00:00'})
+# stop3.save()
 
 get ('/') do
-  Stop.clear
-  City.clear
-  Train.clear
+  # Stop.clear
+  # City.clear
+  # Train.clear
   redirect to('/stops')
 end
 
@@ -37,6 +37,17 @@ get('/stops') do
 end
 
 get('/stops/new') do
+  @cities = City.all
+  @trains = Train.all
+  @times = []
+  24.times do |i|
+    if i < 10
+      @times.push("0#{i}:00:00")
+    else
+      @times.push("#{i}:00:00")
+    end
+  end
+  # binding.pry
   erb(:new_stop)
 end
 
@@ -44,7 +55,8 @@ post('/stops') do
   city = City.find(params[:city_id].to_i)
   train = Train.find(params[:train_id].to_i)
   time = params[:time]
-  Stop.new({:city => city, :train => train, :time => time})
+  Stop.new({:city => city, :train => train, :time => time}).save()
+  # binding.pry
   redirect to('/stops')
 end
 
@@ -66,6 +78,7 @@ end
 
 get('/cities/:id') do
   @city = City.find(params[:id].to_i())
+  @stops = city.stops
   erb(:city)
 end
 
@@ -97,7 +110,7 @@ end
 
 post('/trains') do
   name = params[:train_name]
-  train = train.new({:name => name, :id => nil})
+  train = Train.new({:name => name, :id => nil})
   train.save()
   redirect to('/trains')
 end

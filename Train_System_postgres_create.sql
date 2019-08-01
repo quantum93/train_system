@@ -1,5 +1,6 @@
 CREATE TABLE "trains" (
 	"id" serial NOT NULL,
+	"name" varchar NOT NULL,
 	CONSTRAINT "trains_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

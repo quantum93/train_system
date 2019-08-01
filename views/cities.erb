@@ -1,0 +1,18 @@
+<h1>All Cities</h1>
+<h3>Listed by city id</h3>
+
+<% if @cities.any? %>
+<table>
+  <tr> <th>City</th><th>City ID</th> </tr>
+  <% @cities.each do |city| %>
+  <tr>
+    <td><a href="/cities/<%= city.id %>"><%= city.name%></a></td>
+    <td><%=city.id%></td>
+  </tr>
+  <% end %>
+</table>
+<% else %>
+<p>There are no cities to go....hope you like this city</p>
+<% end %>
+
+<p><a href="/cities/new">Add a new city</a></p>
