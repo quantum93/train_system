@@ -78,7 +78,7 @@ end
 
 get('/cities/:id') do
   @city = City.find(params[:id].to_i())
-  @stops = city.stops
+  @stops = @city.stops
   erb(:city)
 end
 
